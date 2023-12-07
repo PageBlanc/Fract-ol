@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/07 14:19:20 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:08:40 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ int	key_hook(int keycode, f_fract *fract)
 	if (keycode == 65307)
 		return (destroy(&fract->img));
 	else if (keycode == 65363)
-		fract->panx += 50;
+		fract->panx += 50 / fract->zoom;
 	else if (keycode == 65361)
-		fract->panx -= 50;
+		fract->panx -= 50 / fract->zoom;
 	else if (keycode == 65364)
-		fract->pany += 50;
+		fract->pany += 50 / fract->zoom;
 	else if (keycode == 65362)
-		fract->pany -= 50;
+		fract->pany -= 50 / fract->zoom;
+	else if (keycode == 65451)
+		fract->color += 120;
+	else if (keycode == 65453)
+		fract->color -= 120;
+	else if (keycode == 65438)
+		fract->color = 0;		
 	print_fractol(fract);
 	return (1);
 }

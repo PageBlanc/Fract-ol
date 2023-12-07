@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/07 14:23:42 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:14:04 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int julia(f_fract *fract)
 	double zy;
 	double xtemp;
 	int i = 0;
-	int max =250;
+	int max = 200;
 
 	zx = (double)(fract->x) / fract->zoom + fract->panx;
 	zx = ((zx / WIDTH - 0.5) * 4 ) * fract->ratio;
@@ -78,7 +78,7 @@ t_data print_fractol(f_fract *fract)
 			//  if (i == 0)
 			//  	put_pixel(&fract->img, fract->x, fract->y,ft_rgb(57,0,0));
 			// else
-				put_pixel(&fract->img, fract->x, fract->y,ft_rgb(i, i, i) + (i) * ((fract->x + fract->y) / (fract->cx + fract->cy)));/// - 1 * (fract->cx + fract->cy));
+				put_pixel(&fract->img, fract->x, fract->y,ft_rgb(i, i, i) + (((i) /  - 1 * (fract->cx + fract->color + fract->cy)) / 10));//((fract->x + fract->y) / (fract->cx + fract->cy)));///
 			fract->y++;
 	 	}
 	 	fract->x++;
@@ -111,6 +111,7 @@ void fract_init(f_fract *fract)
 	fract->ratio = WIDTH / HEIGHT;
 	fract->panx = 0;
 	fract->pany = 0;
+	fract->color = 1;
 }
 
 int	main(int ac, char **av)
