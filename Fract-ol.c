@@ -6,92 +6,97 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/07 19:14:04 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/08 23:24:02 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"Fract-ol.h"
-
-
-int    destroy(t_data *img)
-{
-    mlx_clear_window(img->mlx, img->win);
-    mlx_destroy_image(img->mlx,img->img);
-    mlx_destroy_window(img->mlx, img->win);
-    mlx_destroy_display(img->mlx);
-    mlx_loop_end(img->mlx);
-    exit(EXIT_SUCCESS);
-    return (0);
-}
+#include "Fract-ol.h"
 
 void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-	
+
 	dst = data->addr + (y * data->line_length + x * (data->bbp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-int ft_rgb(int r, int g, int b)
+int	julia(t_fract *fract)
 {
-	g = ((g / 16) * ft_power(16, 3)) + (g % 16) * ft_power(16, 2);
-	r = ((r / 16) * ft_power(16, 5)) + (r % 16) * ft_power(16, 4);
-	return (r + g + b);
-}
+	double	zx;
+	double	zy;
+	double	xtemp;
+	int		i;
+	int		max;
 
-int julia(f_fract *fract)
-{
-	double zx;
-	double zy;
-	double xtemp;
-	int i = 0;
-	int max = 200;
-
+	i = 0;
+	max = 200;
 	zx = (double)(fract->x) / fract->zoom + fract->panx;
-	zx = ((zx / WIDTH - 0.5) * 4 ) * fract->ratio;
+	zx = ((zx / WIDTH - 0.5) * 4) * fract->ratio;
 	zy = (double)(fract->y) / fract->zoom + fract->pany;
 	zy = (zy / HEIGHT - 0.5) * 4;
-	while (zx * zx + zy * zy < 4  &&  i < max)
+	while (zx * zx + zy * zy < 4 && i++ < max)
 	{
 		xtemp = zx * zx - zy * zy;
-        zy = 2 * zx * zy  + fract->cy;
-        zx = xtemp + fract->cx;
-		i++;
+		zy = 2 * zx * zy + fract->cy;
+		zx = xtemp + fract->cx;
 	}
 	if (i == max)
-        return 0;
-    else
-        return i;
+	 	return (0);
+	else
+		return (i);
 }
 
-t_data print_fractol(f_fract *fract)
+int mandelbrot(t_fract *fract)
 {
-	int i;
-	
+	double	zx;
+	double	zy;
+	double	xtemp;
+	int		i;
+	int		max;
+
+	i = 0;
+	max = 200;
+	zx = 0;
+	zy = 0;
+	while (zx * zx + zy * zy < 4 && i++ < max)
+	{
+		xtemp = zx * zx - zy * zy;
+		zy = 2 * zx * zy + fract->cy;
+		zx = xtemp + fract->cx;
+	}
+	if (i == max)
+	 	return (0);
+	else
+		return (i);
+}
+
+t_data	print_fractol(t_fract *fract)
+{
+	int	i;
+
 	fract->x = 0;
-	while (fract->x < WIDTH)
+	while (fract->x++ < WIDTH)
 	{
 		fract->y = 0 ;
-		while (fract->y < HEIGHT)
+		while (fract->y++ < HEIGHT)
 		{
 			i = julia(fract);
-			//  if (i == 0)
-			//  	put_pixel(&fract->img, fract->x, fract->y,ft_rgb(57,0,0));
-			// else
-				put_pixel(&fract->img, fract->x, fract->y,ft_rgb(i, i, i) + (((i) /  - 1 * (fract->cx + fract->color + fract->cy)) / 10));//((fract->x + fract->y) / (fract->cx + fract->cy)));///
-			fract->y++;
-	 	}
-	 	fract->x++;
+			put_pixel(&fract->img, fract->x, fract->y, ft_rgb(i, i, i) + \
+			(i / -1 * (fract->cx + fract->color + fract->cy)) / 10);
+		}
 	}
-	mlx_put_image_to_window(fract->img.mlx, fract->img.win, fract->img.img,0, 0);
-	return fract->img;
+	mlx_put_image_to_window(fract->img.mlx, \
+	fract->img.win, fract->img.img, 0, 0);
+	return (fract->img);
 }
 
-
-int multiple_julia(f_fract *fract)
+int	multiple_julia(t_fract *fract)
 {
-	int x = 0;
-	int y = 0;
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
 	if (fract->is_press)
 	{
 		mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
@@ -99,34 +104,33 @@ int multiple_julia(f_fract *fract)
 		fract->cy = (double)((((double) y) / HEIGHT - 0.5) * 2);
 	}
 	print_fractol(fract);
-	return  1;
+	return (1);
 }
 
-void fract_init(f_fract *fract)
+void	init_fractol(char *type, char *x, char *y)
 {
-	fract->is_press = 1;
-	fract->zoom = 1;
-	fract->cx = 0;
-	fract->cy = 0;
-	fract->ratio = WIDTH / HEIGHT;
-	fract->panx = 0;
-	fract->pany = 0;
-	fract->color = 1;
-}
+	t_fract	fract;
 
-int	main(int ac, char **av)
-{
-	f_fract fract;
-	
-	fract_init(&fract);
+	fract.type = type[0];
+	fractval_init(&fract, x, y);
 	fract.img.mlx = mlx_init();
-	fract.img.win = mlx_new_window(fract.img.mlx, WIDTH, HEIGHT, "Fract-ol!");
+	fract.img.win = mlx_new_window(fract.img.mlx, WIDTH, HEIGHT, type);
 	fract.img.img = mlx_new_image(fract.img.mlx, WIDTH, HEIGHT);
-	fract.img.addr = mlx_get_data_addr(fract.img.img, &fract.img.bbp, &fract.img.line_length, &fract.img.endian);
+	fract.img.addr = mlx_get_data_addr(fract.img.img, &fract.img.bbp, \
+	&fract.img.line_length, &fract.img.endian);
 	mlx_key_hook(fract.img.win, key_hook, &fract);
 	mlx_mouse_hook(fract.img.win, mouse_hook, &fract);
-	mlx_hook(fract.img.win, 17, 1L<<0, destroy, &fract.img);
-	mlx_loop_hook(fract.img.mlx, multiple_julia , &fract);
+	mlx_hook(fract.img.win, 17, 1L << 0, destroy, &fract.img);
+	if (fract.type == )
+	mlx_loop_hook(fract.img.mlx, multiple_julia, &fract);
 	mlx_loop(fract.img.mlx);
 	destroy(&fract.img);
+}
+int	main(int ac, char **av)
+{
+	if (!ft_strncmp(av[1], "julia", 5) && ac == 4)
+		init_fractol(av[1], av[2], av[3]);
+	else if (!ft_strncmp(av[1], "mandelbrot", 10) && ac == 2)
+		init_fractol(av[1], "0", "0");
+	// else if (ft_strncmp(fract.type, "burningship", 11) && ac == 2)
 }

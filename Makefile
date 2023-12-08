@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:17 by axdubois          #+#    #+#              #
-#    Updated: 2023/12/04 11:09:12 by axdubois         ###   ########.fr        #
+#    Updated: 2023/12/08 23:12:20 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB 	= libft.a
 
 FLAG 	= -Wall -Wextra -Werror
 
-SRC 	= Fract-ol.c Fract_hook.c
+SRC 	= Fract-ol.c Fract_hook.c ft_utils.c
  
 OBJS = $(SRC:.c=.o)
 
