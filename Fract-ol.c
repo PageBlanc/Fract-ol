@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/08 23:24:02 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:43:27 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,35 @@ int	julia(t_fract *fract)
 		zy = 2 * zx * zy + fract->cy;
 		zx = xtemp + fract->cx;
 	}
-	if (i == max)
-	 	return (0);
+	 if (i == max)
+		return (0);
 	else
 		return (i);
 }
 
-int mandelbrot(t_fract *fract)
-{
-	double	zx;
-	double	zy;
-	double	xtemp;
-	int		i;
-	int		max;
+// int mandelbrot(t_fract *fract)
+// {
+// 	double	zx;
+// 	double	zy;
+// 	double	xtemp;
+// 	int		i;
+// 	int		max;
 
-	i = 0;
-	max = 200;
-	zx = 0;
-	zy = 0;
-	while (zx * zx + zy * zy < 4 && i++ < max)
-	{
-		xtemp = zx * zx - zy * zy;
-		zy = 2 * zx * zy + fract->cy;
-		zx = xtemp + fract->cx;
-	}
-	if (i == max)
-	 	return (0);
-	else
-		return (i);
-}
+// 	i = 0;
+// 	max = 250;
+// 	zx = 0;
+// 	zy = 0;
+// 	while (zx * zx + zy * zy < 4 && i++ < max)
+// 	{
+// 		xtemp = zx * zx - zy * zy;
+// 		zy = 2 * zx * zy + fract->cy;
+// 		zx = xtemp + fract->cx;
+// 	}
+// 	if (i == max)
+// 	 	return (0);
+// 	else
+// 		return (i);
+// }
 
 t_data	print_fractol(t_fract *fract)
 {
@@ -87,6 +87,8 @@ t_data	print_fractol(t_fract *fract)
 	}
 	mlx_put_image_to_window(fract->img.mlx, \
 	fract->img.win, fract->img.img, 0, 0);
+	if (fract->multicolor)
+		fract->color += cos(7/8) + tanl(sin(8/9) * 2);
 	return (fract->img);
 }
 
@@ -121,7 +123,6 @@ void	init_fractol(char *type, char *x, char *y)
 	mlx_key_hook(fract.img.win, key_hook, &fract);
 	mlx_mouse_hook(fract.img.win, mouse_hook, &fract);
 	mlx_hook(fract.img.win, 17, 1L << 0, destroy, &fract.img);
-	if (fract.type == )
 	mlx_loop_hook(fract.img.mlx, multiple_julia, &fract);
 	mlx_loop(fract.img.mlx);
 	destroy(&fract.img);

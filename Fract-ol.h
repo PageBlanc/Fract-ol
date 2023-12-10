@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/08 23:18:47 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:33:12 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct f_fract{
 	double	pany;
 	double	color;
 	char	type;
+	int		multicolor;
 }				t_fract;
 
 int		key_hook(int keycode, t_fract *fract);

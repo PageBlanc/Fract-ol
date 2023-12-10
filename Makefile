@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:17 by axdubois          #+#    #+#              #
-#    Updated: 2023/12/08 23:12:20 by axdubois         ###   ########.fr        #
+#    Updated: 2023/12/10 12:40:46 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME) : $(LIB) $(OBJS)
 	@cc ${FLAG} $(OBJS) ${LIBFT} -Lmlx -lmlx_Linux -I./mlx -lXext -lX11 -lm -lz -o $@
  
 clean :
-	@rm -f $(OBJETS)
+	@rm -f $(OBJS)
 	@make --quiet -C Libft clean
  
 fclean : clean

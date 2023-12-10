@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/08 22:46:50 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:33:17 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	key_hook(int keycode, t_fract *fract)
 		fract->color -= 120;
 	else if (keycode == 65438)
 		fract->color = 0;
+	else if (keycode == 109)
+		fract->multicolor = !fract->multicolor;
 	print_fractol(fract);
 	return (1);
 }

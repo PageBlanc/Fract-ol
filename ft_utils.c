@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/08 23:18:25 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 12:41:18 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	fractval_init(t_fract *fract, char *x, char *y)
 	fract->is_press = 0;
 	fract->zoom = 1;
 	fract->cx = ft_atof(x);
-	printf("42\n");
 	fract->cy = ft_atof(y);
 	fract->ratio = WIDTH / HEIGHT;
 	fract->panx = 0;
 	fract->pany = 0;
-	fract->color = 1;
+	fract->color = 0;
+	fract->multicolor = 0;
 }
