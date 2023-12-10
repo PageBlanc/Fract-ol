@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 17:15:36 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:25:51 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	fractval_init(t_fract *fract, char *x, char *y)
 
 int	get_color(t_fract *fract, int i)
 {
-	return (ft_rgb(i, i, i) + ((i / -1 * (fract->cx + fract->color + fract->cy)) / 10) * tan(cos(i)));
+	return (ft_rgb(i,i,i) + (i / -1 * (fract->cx + fract->color + fract->cy)) / 10);	
+	//((i / -1 * (fract->cx + fract->color + fract->cy)) / 10)
 }

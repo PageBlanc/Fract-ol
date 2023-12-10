@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 17:01:44 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:03:17 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int	julia(t_fract *fract)
 		zy = 2 * zx * zy + fract->cx;
 		zx = xtemp + fract->cy;
 	}
-	 if (i == max)
-		return (0);
+	if (i == max)
+		return (-1);
 	else
 		return (i);
 }
 
 
-long double mandelbrot(t_fract *fract)
+double mandelbrot(t_fract *fract)
 {
  	double	zx;
  	double	zy;
@@ -72,12 +72,12 @@ long double mandelbrot(t_fract *fract)
 		zx = xtemp;
  	}
  	if (i == max)
- 	 	return (0);
+ 	 	return (-1);
  	else
  		return (i);
 }
 
-long double burningship(t_fract *fract)
+double burningship(t_fract *fract)
 {
  	double			zx;
  	double			zy;
@@ -88,7 +88,7 @@ long double burningship(t_fract *fract)
 	long double 	cy;
 
  	i = 0;
- 	max = 150;
+ 	max = 300;
  	zx = 0;
  	zy = 0;
 	cx = (double)(fract->x) / fract->zoom + fract->panx;
@@ -102,7 +102,7 @@ long double burningship(t_fract *fract)
 		zx = xtemp;
  	}
  	if (i == max)
- 	 	return (0);
+ 	 	return (-1);
  	else
  		return (i);
 }
@@ -120,9 +120,9 @@ t_data	print_fractol(t_fract *fract)
 			if (fract->type == 'j')
 				i = julia(fract);
 			else if (fract->type == 'm')
-				i = mandelbrot(fract);
+				i = (int)mandelbrot(fract);
 			else if (fract->type == 'b')
-				i = burningship(fract);
+				i = (int)burningship(fract);
 			put_pixel(&fract->img, fract->x, fract->y, get_color(fract, i));
 		}
 	}
