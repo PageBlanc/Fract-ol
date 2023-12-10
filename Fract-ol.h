@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 12:33:12 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:45:53 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct f_fract{
 	double	color;
 	char	type;
 	int		multicolor;
+	int		pixel;
 }				t_fract;
 
 int		key_hook(int keycode, t_fract *fract);
@@ -56,6 +57,8 @@ int		ft_rgb(int r, int g, int b);
 double	ft_atof(char *nbr);
 int		destroy(t_data *img);
 void	fractval_init(t_fract *fract, char *x, char *y);
+int		get_color(t_fract *fract, int i);
+
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 12:41:18 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:15:36 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	destroy(t_data *img)
 	mlx_clear_window(img->mlx, img->win);
 	mlx_destroy_image(img->mlx, img->img);
 	mlx_destroy_window(img->mlx, img->win);
-	mlx_destroy_display(img->mlx);
 	mlx_loop_end(img->mlx);
+	mlx_destroy_display(img->mlx);
 	exit(EXIT_SUCCESS);
 }
 
@@ -66,4 +66,9 @@ void	fractval_init(t_fract *fract, char *x, char *y)
 	fract->pany = 0;
 	fract->color = 0;
 	fract->multicolor = 0;
+}
+
+int	get_color(t_fract *fract, int i)
+{
+	return (ft_rgb(i, i, i) + ((i / -1 * (fract->cx + fract->color + fract->cy)) / 10) * tan(cos(i)));
 }
