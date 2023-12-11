@@ -6,11 +6,11 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 19:25:51 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:01:25 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fract-ol.h"
+#include "Fractol.h"
 
 int	ft_rgb(int r, int g, int b)
 {
@@ -45,16 +45,6 @@ double	ft_atof(char *nbr)
 	return (result);
 }
 
-int	destroy(t_data *img)
-{
-	mlx_clear_window(img->mlx, img->win);
-	mlx_destroy_image(img->mlx, img->img);
-	mlx_destroy_window(img->mlx, img->win);
-	mlx_loop_end(img->mlx);
-	mlx_destroy_display(img->mlx);
-	exit(EXIT_SUCCESS);
-}
-
 void	fractval_init(t_fract *fract, char *x, char *y)
 {
 	fract->is_press = 0;
@@ -64,12 +54,12 @@ void	fractval_init(t_fract *fract, char *x, char *y)
 	fract->ratio = WIDTH / HEIGHT;
 	fract->panx = 0;
 	fract->pany = 0;
-	fract->color = 0;
+	fract->color = 120;
 	fract->multicolor = 0;
 }
 
 int	get_color(t_fract *fract, int i)
 {
-	return (ft_rgb(i,i,i) + (i / -1 * (fract->cx + fract->color + fract->cy)) / 10);	
-	//((i / -1 * (fract->cx + fract->color + fract->cy)) / 10)
+	return (ft_rgb(i, i, i) + (i * fract->color) + ((i / -1 * \
+	(fract->cx + fract->color + fract->cy)) / 10));
 }

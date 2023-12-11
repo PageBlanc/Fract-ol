@@ -6,15 +6,14 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/10 12:33:17 by axdubois         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:43:06 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fract-ol.h"
+#include "Fractol.h"
 
 int	key_hook(int keycode, t_fract *fract)
 {
-	//ft_printf("%i\n", keycode);
 	if (keycode == 65307)
 		return (destroy(&fract->img));
 	else if (keycode == 65363)
@@ -37,25 +36,22 @@ int	key_hook(int keycode, t_fract *fract)
 	return (1);
 }
 
+void	zoom(t_fract *fract, double z_factor, int x, int y)
+{
+	fract->panx = ((double)x / fract->zoom + fract->panx) - \
+	((double)x / (fract->zoom * z_factor));
+	fract->pany = ((double)y / fract->zoom + fract->pany) - \
+	((double)y / (fract->zoom * z_factor));
+	fract->zoom *= z_factor;
+}
+
 int	mouse_hook(int mousecode, int x, int y, t_fract *fract)
 {
 	mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
 	if (mousecode == 4)
-	{
-		fract->panx = ((double)x / fract->zoom + fract->panx) - \
-		((double)x / (fract->zoom * 1.5));
-		fract->pany = ((double)y / fract->zoom + fract->pany) - \
-		((double)y / (fract->zoom * 1.5));
-		fract->zoom *= 1.5;
-	}
+		zoom(fract, 1.5, x, y);
 	else if (mousecode == 5)
-	{
-		fract->panx = ((double)x / fract->zoom + fract->panx) - \
-		((double)x / (fract->zoom * 0.5));
-		fract->pany = ((double)y / fract->zoom + fract->pany) - \
-		((double)y / (fract->zoom * 0.5));
-		fract->zoom *= 0.5;
-	}
+		zoom(fract, 0.5, x, y);
 	else if (mousecode == 1)
 		fract->is_press = !fract->is_press;
 	else if (mousecode == 3)
