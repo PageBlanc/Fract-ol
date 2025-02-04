@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/11 10:44:47 by axdubois         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:37:56 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 # include <math.h>
 # include <stdio.h>
 
-typedef struct s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bbp;
@@ -31,7 +32,8 @@ typedef struct s_data {
 	void	*mlx;
 }				t_data;
 
-typedef struct f_fract{
+typedef struct f_fract
+{
 	t_data	img;
 	double	zoom;
 	int		is_press;
@@ -54,7 +56,6 @@ int		multiple_julia(t_fract *fract);
 t_data	print_fractol(t_fract *fract);
 int		ft_rgb(int r, int g, int b);
 double	ft_atof(char *nbr);
-int		destroy(t_data *img);
 void	fractval_init(t_fract *fract, char *x, char *y);
 int		get_color(t_fract *fract, int i);
 void	put_pixel(t_data *data, int x, int y, int color);

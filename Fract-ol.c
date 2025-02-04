@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/11 11:10:00 by axdubois         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:42:18 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	main(int ac, char **av)
 	{
 		ft_printf("1 -julia x y\n");
 		ft_printf("2 -mandelbrot\n");
-		ft_printf("3 -burninship\n");
+		ft_printf("3 -burningship\n");
 	}
 	return (0);
 }
