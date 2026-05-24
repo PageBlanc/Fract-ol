@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 12:31:06 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:31:39 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct f_fract
 	double ratio;
 	double panx;
 	double pany;
+	double c_re;
+	double c_im;
 	int is_press;
 	int x;
 	int y;
@@ -60,9 +62,8 @@ int destroy(t_data *img);
 int multiple_julia(t_fract *fract);
 int ft_rgb(int r, int g, int b);
 int get_color(t_fract *fract, int i);
-int julia(t_fract *fract);
-// int mandelbrot(t_fract *fract);
-int mandelbrot(double cx, double cy, int max_iter);
-int burningship(t_fract *fract);
+int mandelbrot(double cx, double cy, int max, double c_re, double c_im);
+int julia(double cx, double cy, int max, double c_re, double c_im);
+int burningship(double cx, double cy, int max, double c_re, double c_im);
 
 #endif

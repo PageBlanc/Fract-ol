@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:08:07 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:38:18 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,16 @@ void zoom(t_fract *fract, double factor, int x, int y)
 int mouse_hook(int mousecode, int x, int y, t_fract *fract)
 {
 	mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
-	if (mousecode == 4)
+	if (mousecode == 4) // Scroll up
 		zoom(fract, 1.5, x, y);
-	else if (mousecode == 5)
+	else if (mousecode == 5) // Scroll down
 		zoom(fract, 0.5, x, y);
-	else if (mousecode == 1)
+	else if (mousecode == 1) // Left click
 		fract->is_press = !fract->is_press;
-	else if (mousecode == 3)
+	else if (mousecode == 3) // Right click
 	{
-		if (x < WIDTH / 2)
-			x *= -1;
-		if (y < HEIGHT / 2)
-			y *= -1;
-		fract->panx += (double) x / 5;
-		fract->pany += (double) y / 5;
+		fract->c_re = (double) x / WIDTH * 2.0 - 1.0;
+		fract->c_im = (double) y / HEIGHT * 2.0 - 1.0;
 	}
 	print_fractol(fract);
 	return (1);

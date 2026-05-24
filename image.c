@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:17:10 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:32:13 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,28 @@ void put_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-// int (*choice_func(char type))(t_fract *)
-// {
-// 	if (type == 'j')
-// 		return (julia);
-// 	else if (type == 'm')
-// 		return (mandelbrot);
-// 	else if (type == 'b')
-// 		return (burningship);
-// 	return (NULL);
-// }
+int (*choice_func(char type))(double, double, int, double, double)
+{
+	if (type == 'j')
+		return (julia);
+	else if (type == 'm')
+		return (mandelbrot);
+	else if (type == 'b')
+		return (burningship);
+	return (NULL);
+}
 
 t_data print_fractol(t_fract *fract)
 {
 	int max_iter = 200;
+	int (*func)(double, double, int, double, double) = choice_func(fract->type);
+	if (!func)
+		return (fract->img);
+	else if (fract->type == 'j')
+	{
+		fract->c_re = fract->cx;
+		fract->c_im = fract->cy;
+	}
 	double scale_x = 1.0 / fract->zoom;
 	double scale_y = 1.0 / fract->zoom;
 
@@ -56,7 +64,7 @@ t_data print_fractol(t_fract *fract)
 		fract->x = 0;
 		while (fract->x < WIDTH)
 		{
-			int iteration = mandelbrot(cx, cy, max_iter);
+			int iteration = func(cx, cy, max_iter, fract->c_re, fract->c_im);
 			put_pixel(
 				&fract->img, fract->x, fract->y, get_color(fract, iteration)
 			);

@@ -6,37 +6,40 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:17:40 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:30:48 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fractol.h"
 
-int julia(t_fract *fract)
+int julia(double zx, double zy, int max_iter, double cr, double ci)
 {
-	double zx;
-	double zy;
-	double xtemp;
-	double i;
-	int max;
+	double zx2 = 0.0;
+	double zy2 = 0.0;
+	int i = 0;
 
-	i = 0;
-	max = 200;
-	zx = (double) (fract->x) / fract->zoom + fract->panx;
-	zx = ((zx / WIDTH - 0.5) * 4) * fract->ratio;
-	zy = (double) (fract->y) / fract->zoom + fract->pany;
-	zy = (zy / HEIGHT - 0.5) * 4;
-	while (zx * zx + zy * zy < 4 && i++ < max)
+	// Iterate the function z = z^2 + c
+	while (i < max_iter)
 	{
-		xtemp = zx * zx - zy * zy;
-		zy = 2 * zx * zy + fract->cx;
-		zx = xtemp + fract->cy;
+		// Update zx2 and zy2 for the next iteration
+		zx2 = zx * zx;
+		zy2 = zy * zy;
+		if (zx2 + zy2 > 4.0)
+			break;
+		// Calculate the next iteration of z
+		zy = 2.0 * zx * zy + ci;
+		zx = zx2 - zy2 + cr;
+
+		i++;
 	}
-	return (i == max) ? -1 : i;
+	return (i == max_iter) ? -1 : i;
 }
 
-int mandelbrot(double cx, double cy, int max_iter)
+int mandelbrot(double cx, double cy, int max_iter, double c_re, double c_im)
 {
+	(void)c_re; // Unused parameter
+	(void)c_im; // Unused parameter
+
 	double zx = 0.0;
 	double zy = 0.0;
 	double zx2 = 0.0;
@@ -59,26 +62,35 @@ int mandelbrot(double cx, double cy, int max_iter)
 	return (i == max_iter) ? -1 : i;
 }
 
-int burningship(t_fract *fract)
+int burningship(double cx, double cy, int max_iter, double c_re, double c_im)
 {
-	double zx = 0;
-	double zy = 0;
-	double xtemp;
-	int i = 0;
-	int max = 200;
+	(void)c_re; // Unused parameter
+	(void)c_im; // Unused parameter
 
-	fract->cx = (double) (fract->x) / fract->zoom + fract->panx;
-	fract->cx = ((fract->cx / WIDTH - 0.5) * 2) * fract->ratio;
-	fract->cy = (double) (fract->y) / fract->zoom + fract->pany;
-	fract->cy = (fract->cy / HEIGHT - 0.5) * 2;
-	for (double zx2 = zx * zx, zy2 = zy * zy; zx2 + zy2 < 4 && i++ < max;
-		 zx2 = zx * zx, zy2 = zy * zy)
+	double zx = 0.0;
+	double zy = 0.0;
+	double zx2 = 0.0;
+	double zy2 = 0.0;
+	double tmp = 0.0;
+	int i = 0;
+
+	// Iterate the function z = (|Re(z)| + i|Im(z)|)^2 + c
+	while (i < max_iter)
 	{
-		xtemp = fabs(zx2) - fabs(zy2) + fract->cx;
-		zy = 2 * fabs(zx * zy) + fract->cy;
-		zx = xtemp;
+		// Calculate the next iteration of z
+		zx2 = zx * zx;
+		zy2 = zy * zy;
+		if (zx2 + zy2 > 4.0)
+			break;
+
+		// Update zx and zy with absolute values
+		tmp = zx2 - zy2 + cx;
+		zy = fabs(2.0 * zx * zy) + cy;
+		zx = fabs(tmp);
+
+		i++;
 	}
-	return (i == max) ? -1 : i;
+	return (i == max_iter) ? -1 : i;
 }
 
 int multiple_julia(t_fract *fract)
