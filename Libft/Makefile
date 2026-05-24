@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 15:25:03 by axdubois          #+#    #+#              #
-#    Updated: 2026/05/24 10:02:05 by axdubois         ###   ########.fr        #
+#    Updated: 2026/05/24 10:35:48 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(BUILD_DIR):
 
 all : $(NAME) bonus
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) | $(BUILD_DIR)
 	ar rcs $(NAME) $(OBJS)
 
 bonus: $(BOBJS)

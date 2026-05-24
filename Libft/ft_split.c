@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:45:24 by axdubois          #+#    #+#             */
-/*   Updated: 2023/11/08 14:35:04 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 10:40:51 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	**ft_freeall(char **bigtab, size_t n)
 		i++;
 	}
 	free(bigtab);
-	return (bigtab);
+	return (NULL);
 }
 
 static char	**ft_fillbigtab(char **bigtab, size_t n, char const *s, char c)
