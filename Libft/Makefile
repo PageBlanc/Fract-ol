@@ -6,13 +6,15 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/30 15:25:03 by axdubois          #+#    #+#              #
-#    Updated: 2023/12/03 01:10:40 by axdubois         ###   ########.fr        #
+#    Updated: 2026/05/24 10:02:05 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    = libft.a
 
-SRCS    = 	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_bzero.c   \
+BUILD_DIR = build
+
+SRCS    = 	 ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_bzero.c   \
 			ft_isprint.c ft_memset.c  ft_strchr.c  ft_strlen.c  ft_strncmp.c \
 			ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_memcpy.c  \
 			ft_memmove.c ft_memchr.c  ft_memcmp.c  ft_strlcat.c ft_strlcpy.c \
@@ -25,13 +27,16 @@ BSRCS	=	ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c 	 \
 			ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c   \
 			ft_lstclear_bonus.c ft_lstiter_bonus.c    ft_lstmap_bonus.c
 
-OBJS    = 	$(SRCS:.c=.o)
+OBJS    = 	$(addprefix $(BUILD_DIR)/, $(SRCS:.c=.o))
 
-BOBJS	=	$(BSRCS:.c=.o)
+BOBJS	=	$(addprefix $(BUILD_DIR)/, $(BSRCS:.c=.o))
 
 CC = cc
 
 FLAGS = -Wall -Wextra -Werror 
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
 all : $(NAME) bonus
 
@@ -41,11 +46,11 @@ $(NAME) : $(OBJS)
 bonus: $(BOBJS)
 	ar rcs $(NAME) $(BOBJS)
 
-.c.o:
+$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
-	rm -f $(OBJS) $(BOBJS)
+	rm -rf $(BUILD_DIR)
 
 fclean : clean
 	rm -f $(NAME)

@@ -1,0 +1,73 @@
+---
+Language: C
+
+# Base style
+BasedOnStyle: LLVM
+
+# Indentation
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 4
+
+# Column limit
+ColumnLimit: 80
+
+# Braces style (42 school norm)
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterFunction: true
+  AfterControlStatement: true
+  AfterStruct: true
+  AfterEnum: true
+  AfterUnion: true
+  BeforeElse: true
+  BeforeCatch: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+
+# Spaces
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+SpaceAfterCStyleCast: true
+SpacesBeforeTrailingComments: 1
+
+# Pointers aligned to variable name
+PointerAlignment: Right
+
+# Block declaration alignment
+AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveMacros: true
+
+# No compact style
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+
+# Wrapping and packing
+BinPackArguments: false
+BinPackParameters: false
+
+# Alignments
+AlignOperands: true
+AlignAfterOpenBracket: BlockIndent
+AlignConsecutiveDeclarations: true
+AlignConsecutiveAssignments: false
+
+# Includes
+SortIncludes: false
+
+# Divers
+IndentCaseLabels: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+
+# Pour éviter certains comportements LLVM
+DerivePointerAlignment: false
+...

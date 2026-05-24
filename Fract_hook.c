@@ -6,13 +6,13 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2023/12/11 10:43:06 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 10:22:41 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fractol.h"
 
-int	key_hook(int keycode, t_fract *fract)
+int key_hook(int keycode, t_fract *fract)
 {
 	if (keycode == 65307)
 		return (destroy(&fract->img));
@@ -36,16 +36,16 @@ int	key_hook(int keycode, t_fract *fract)
 	return (1);
 }
 
-void	zoom(t_fract *fract, double z_factor, int x, int y)
+void zoom(t_fract *fract, double z_factor, int x, int y)
 {
-	fract->panx = ((double)x / fract->zoom + fract->panx) - \
-	((double)x / (fract->zoom * z_factor));
-	fract->pany = ((double)y / fract->zoom + fract->pany) - \
-	((double)y / (fract->zoom * z_factor));
+	fract->panx = ((double) x / fract->zoom + fract->panx) -
+				  ((double) x / (fract->zoom * z_factor));
+	fract->pany = ((double) y / fract->zoom + fract->pany) -
+				  ((double) y / (fract->zoom * z_factor));
 	fract->zoom *= z_factor;
 }
 
-int	mouse_hook(int mousecode, int x, int y, t_fract *fract)
+int mouse_hook(int mousecode, int x, int y, t_fract *fract)
 {
 	mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
 	if (mousecode == 4)
@@ -60,8 +60,8 @@ int	mouse_hook(int mousecode, int x, int y, t_fract *fract)
 			x *= -1;
 		if (y < HEIGHT / 2)
 			y *= -1;
-		fract->panx += (double)x / 5;
-		fract->pany += (double)y / 5;
+		fract->panx += (double) x / 5;
+		fract->pany += (double) y / 5;
 	}
 	print_fractol(fract);
 	return (1);
