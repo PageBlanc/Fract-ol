@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 14:22:33 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 17:31:00 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ t_data print_fractol(t_fract *fract)
 		fract->img.mlx, fract->img.win, fract->img.img, 0, 0
 	);
 	fract->need_redraw = false;
-	// if (fract->multicolor)
-	//  fract->color += (int){cos(7 / 8) + tanl(sin(8 / 9) * 2)};
+	if (fract->multicolor)
+		fract->color = (fract->color + 1) % 0xFFFFFF;
 	return (fract->img);
 }
 
@@ -95,10 +95,12 @@ void init_fractol(char *type, char *x, char *y)
 	fract.img.addr = mlx_get_data_addr(
 		fract.img.img, &fract.img.bbp, &fract.img.line_length, &fract.img.endian
 	);
-	mlx_key_hook(fract.img.win, (int (*)())(void *)key_hook, &fract);
-	mlx_mouse_hook(fract.img.win, (int (*)())(void *)mouse_hook, &fract);
-	mlx_hook(fract.img.win, 17, 1L << 0, (int (*)())(void *)destroy, &fract.img);
-	mlx_loop_hook(fract.img.mlx, (int (*)())(void *)lauch_fractol, &fract);
+	mlx_key_hook(fract.img.win, (int (*)())(void *) key_hook, &fract);
+	mlx_mouse_hook(fract.img.win, (int (*)())(void *) mouse_hook, &fract);
+	mlx_hook(
+		fract.img.win, 17, 1L << 0, (int (*)())(void *) destroy, &fract.img
+	);
+	mlx_loop_hook(fract.img.mlx, (int (*)())(void *) lauch_fractol, &fract);
 	mlx_loop(fract.img.mlx);
 	destroy(&fract.img);
 }

@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 14:20:45 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 17:14:45 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int lauch_fractol(t_fract *fract)
 		mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
 		fract->cx = (double) ((((double) x) / WIDTH - 0.5) * 2);
 		fract->cy = (double) ((((double) y) / HEIGHT - 0.5) * 2);
+		fract->need_redraw = true;
 	}
 	if (DEBUG_PERF && fract->need_redraw)
 	{ // Measure rendering time for performance debugging
