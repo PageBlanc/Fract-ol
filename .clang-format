@@ -1,5 +1,5 @@
 ---
-Language: C
+Language: Cpp
 
 # Base style
 BasedOnStyle: LLVM
@@ -38,11 +38,6 @@ SpacesBeforeTrailingComments: 1
 # Pointers aligned to variable name
 PointerAlignment: Right
 
-# Block declaration alignment
-AlignConsecutiveDeclarations: true
-AlignConsecutiveAssignments: true
-AlignConsecutiveMacros: true
-
 # No compact style
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
@@ -57,7 +52,6 @@ BinPackParameters: false
 # Alignments
 AlignOperands: true
 AlignAfterOpenBracket: BlockIndent
-AlignConsecutiveDeclarations: true
 AlignConsecutiveAssignments: false
 
 # Includes
@@ -70,4 +64,3 @@ MaxEmptyLinesToKeep: 1
 
 # Pour éviter certains comportements LLVM
 DerivePointerAlignment: false
-...

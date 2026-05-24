@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 10:22:49 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 11:26:11 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 int ft_rgb(int r, int g, int b)
 {
-	g = ((g / 16) * ft_power(16, 3)) + (g % 16) * ft_power(16, 2);
-	r = ((r / 16) * ft_power(16, 5)) + (r % 16) * ft_power(16, 4);
-	return (r + g + b);
+	r = (r < 0) ? 0 : (r > 255) ? 255 : r;
+	g = (g < 0) ? 0 : (g > 255) ? 255 : g;
+	b = (b < 0) ? 0 : (b > 255) ? 255 : b;
+	return ((r << 16) | (g << 8) | b);
 }
 
 double ft_atof(char *nbr)
 {
 	double result;
 	double fraction;
-	int	   i;
+	int i;
 
 	result = 0.0;
 	fraction = 1.0;
@@ -60,8 +61,14 @@ void fractval_init(t_fract *fract, char *x, char *y)
 
 int get_color(t_fract *fract, int i)
 {
-	return (
-		ft_rgb(i, i, i) + (i * fract->color) +
-		((i / -1 * (fract->cx + fract->color + fract->cy)) / 10)
-	);
+	int intensity;
+	int r;
+	int g;
+	int b;
+
+	intensity = i % 256;
+	r = intensity;
+	g = (intensity + fract->color) % 256;
+	b = (intensity * 2) % 256;
+	return (ft_rgb(r, g, b));
 }

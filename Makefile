@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:17 by axdubois          #+#    #+#              #
-#    Updated: 2026/05/24 10:47:20 by axdubois         ###   ########.fr        #
+#    Updated: 2026/05/24 11:29:24 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,13 @@ julia: all
 
 burningship: all
 	@./$(NAME) burningship
+
+valgrind: all
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) mandelbrot
+
+make perf: all
+	@perf record -F 99 -g -- ./$(NAME) mandelbrot
+	@perf report
  
 clean :
 	@rm -rf $(BUILD_DIR)
@@ -62,4 +69,4 @@ re: fclean all
 .SILENT:
 	all
 	
-.PHONY: clean all re fclean  mandelbrot julia burningship
+.PHONY: clean all re fclean  mandelbrot julia burningship perf valgrind

@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 10:22:41 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 11:09:58 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int key_hook(int keycode, t_fract *fract)
 {
-	if (keycode == 65307)
+	if (keycode == 65307) // Escape key
 		return (destroy(&fract->img));
-	else if (keycode == 65363)
+	else if (keycode == 65363) // Right arrow key
 		fract->panx += 50 / fract->zoom;
-	else if (keycode == 65361)
+	else if (keycode == 65361) // Left arrow key
 		fract->panx -= 50 / fract->zoom;
-	else if (keycode == 65364)
+	else if (keycode == 65364) // Down arrow key
 		fract->pany += 50 / fract->zoom;
-	else if (keycode == 65362)
+	else if (keycode == 65362) // Up arrow key
 		fract->pany -= 50 / fract->zoom;
-	else if (keycode == 65451)
+	else if (keycode == 65451) // Plus key
 		fract->color += 120;
-	else if (keycode == 65453)
+	else if (keycode == 65453) // Minus key
 		fract->color -= 120;
-	else if (keycode == 65438)
+	else if (keycode == 65438) // Home key
 		fract->color = 0;
-	else if (keycode == 109)
+	else if (keycode == 109) // 'm' key
 		fract->multicolor = !fract->multicolor;
 	print_fractol(fract);
 	return (1);

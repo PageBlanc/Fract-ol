@@ -2,3 +2,4 @@ build
 fract-ol
 *.o
 libft.a
+perf.data

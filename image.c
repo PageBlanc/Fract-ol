@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 10:28:38 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 11:33:43 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_data print_fractol(t_fract *fract)
 		fract->img.mlx, fract->img.win, fract->img.img, 0, 0
 	);
 	if (fract->multicolor)
-		fract->color += cos(7 / 8) + tanl(sin(8 / 9) * 2);
+		fract->color += (int){cos(7 / 8) + tanl(sin(8 / 9) * 2)};
 	return (fract->img);
 }
 
