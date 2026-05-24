@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:17 by axdubois          #+#    #+#              #
-#    Updated: 2026/05/24 14:18:33 by axdubois         ###   ########.fr        #
+#    Updated: 2026/05/24 16:27:51 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,26 @@ valgrind: all
 make perf: all
 	@perf record -F 99 -g -- ./$(NAME) mandelbrot
 	@perf report
+
+# Docker rules
+docker-build:
+	@docker compose build
+
+docker-clean:
+	@docker compose down --remove-orphans
+	@docker rmi fract-ol-fract-ol 2>/dev/null || true
+
+docker-mandelbrot: docker-build
+	@xhost +local:docker 2>/dev/null || true
+	@docker compose run --rm fract-ol ./fract-ol mandelbrot
+
+docker-julia: docker-build
+	@xhost +local:docker 2>/dev/null || true
+	@docker compose run --rm fract-ol ./fract-ol julia 0.333 0.333
+
+docker-burningship: docker-build
+	@xhost +local:docker 2>/dev/null || true
+	@docker compose run --rm fract-ol ./fract-ol burningship
  
 clean :
 	@rm -rf $(BUILD_DIR)
@@ -69,4 +89,4 @@ re: fclean all
 .SILENT:
 	all
 	
-.PHONY: clean all re fclean  mandelbrot julia burningship perf valgrind
+.PHONY: clean all re fclean mandelbrot julia burningship perf valgrind docker-build docker-clean docker-mandelbrot docker-julia docker-burningship

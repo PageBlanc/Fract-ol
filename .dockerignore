@@ -1,0 +1,11 @@
+.git
+.gitignore
+perf.data.old
+*.o
+*.a
+fract-ol
+__pycache__
+.DS_Store
+node_modules
+.vscode
+.idea
