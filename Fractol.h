@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 11:45:42 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:31:06 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int multiple_julia(t_fract *fract);
 int ft_rgb(int r, int g, int b);
 int get_color(t_fract *fract, int i);
 int julia(t_fract *fract);
-int mandelbrot(t_fract *fract);
+// int mandelbrot(t_fract *fract);
+int mandelbrot(double cx, double cy, int max_iter);
 int burningship(t_fract *fract);
 
 #endif

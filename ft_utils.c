@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 12:13:12 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:16:09 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ double ft_atof(char *nbr)
 void fractval_init(t_fract *fract, char *x, char *y)
 {
 	fract->is_press = 0;
-	fract->zoom = 1;
+	fract->zoom = 300.0;
 	fract->cx = ft_atof(x);
 	fract->cy = ft_atof(y);
-	fract->ratio = WIDTH / HEIGHT;
-	fract->panx = 0;
+	fract->ratio = (double)WIDTH / (double)HEIGHT;
+	fract->panx = -0.5;
 	fract->pany = 0;
 	fract->color = 120;
 	fract->multicolor = 0;
@@ -66,7 +66,9 @@ int get_color(t_fract *fract, int iteration)
 	int g;
 	int b;
 
-	intensity = iteration % 256;
+	if (iteration == -1)
+		return (ft_rgb(0, 0, 0));
+	intensity = ((iteration % 200) * 256) / 200;
 	r = intensity;
 	g = (intensity + fract->color) % 256;
 	b = (intensity * 2) % 256;

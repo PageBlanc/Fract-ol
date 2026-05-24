@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 11:09:58 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:08:07 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,17 @@
 
 int key_hook(int keycode, t_fract *fract)
 {
+	double move = 50.0 / fract->zoom;
 	if (keycode == 65307) // Escape key
 		return (destroy(&fract->img));
 	else if (keycode == 65363) // Right arrow key
-		fract->panx += 50 / fract->zoom;
+		fract->panx += move;
 	else if (keycode == 65361) // Left arrow key
-		fract->panx -= 50 / fract->zoom;
+		fract->panx -= move;
 	else if (keycode == 65364) // Down arrow key
-		fract->pany += 50 / fract->zoom;
+		fract->pany += move;
 	else if (keycode == 65362) // Up arrow key
-		fract->pany -= 50 / fract->zoom;
+		fract->pany -= move;
 	else if (keycode == 65451) // Plus key
 		fract->color += 120;
 	else if (keycode == 65453) // Minus key
@@ -36,13 +37,18 @@ int key_hook(int keycode, t_fract *fract)
 	return (1);
 }
 
-void zoom(t_fract *fract, double z_factor, int x, int y)
+void zoom(t_fract *fract, double factor, int x, int y)
 {
-	fract->panx = ((double) x / fract->zoom + fract->panx) -
-				  ((double) x / (fract->zoom * z_factor));
-	fract->pany = ((double) y / fract->zoom + fract->pany) -
-				  ((double) y / (fract->zoom * z_factor));
-	fract->zoom *= z_factor;
+	double world_x;
+	double world_y;
+
+	world_x = fract->panx + (x - WIDTH / 2.0) / fract->zoom;
+	world_y = fract->pany + (y - HEIGHT / 2.0) / fract->zoom;
+
+	fract->zoom *= factor;
+
+	fract->panx = world_x - (x - WIDTH / 2.0) / fract->zoom;
+	fract->pany = world_y - (y - HEIGHT / 2.0) / fract->zoom;
 }
 
 int mouse_hook(int mousecode, int x, int y, t_fract *fract)

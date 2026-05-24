@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 12:19:20 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:17:10 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,46 @@ void put_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-int (*choice_func(char type))(t_fract *)
-{
-	if (type == 'j')
-		return (julia);
-	else if (type == 'm')
-		return (mandelbrot);
-	else if (type == 'b')
-		return (burningship);
-	return (NULL);
-}
+// int (*choice_func(char type))(t_fract *)
+// {
+// 	if (type == 'j')
+// 		return (julia);
+// 	else if (type == 'm')
+// 		return (mandelbrot);
+// 	else if (type == 'b')
+// 		return (burningship);
+// 	return (NULL);
+// }
 
 t_data print_fractol(t_fract *fract)
 {
-	int iteration = 0;
-	int (*func_ptr)(t_fract *) = choice_func(fract->type);
-	if (!func_ptr)
-		return (fract->img);
+	int max_iter = 200;
+	double scale_x = 1.0 / fract->zoom;
+	double scale_y = 1.0 / fract->zoom;
 
-	fract->x = 0;
-	while (fract->x++ < WIDTH)
+	double cy = fract->pany - (HEIGHT / 2.0) * scale_y;
+	fract->y = 0;
+	while (fract->y < HEIGHT)
 	{
-		fract->y = 0;
-		while (fract->y++ < HEIGHT)
+		double cx = fract->panx - (WIDTH / 2.0) * scale_x;
+		fract->x = 0;
+		while (fract->x < WIDTH)
 		{
-			iteration = func_ptr(fract);
-			put_pixel(&fract->img, fract->x, fract->y, get_color(fract, iteration));
+			int iteration = mandelbrot(cx, cy, max_iter);
+			put_pixel(
+				&fract->img, fract->x, fract->y, get_color(fract, iteration)
+			);
+			cx += scale_x;
+			fract->x++;
 		}
+		cy += scale_y;
+		fract->y++;
 	}
 	mlx_put_image_to_window(
 		fract->img.mlx, fract->img.win, fract->img.img, 0, 0
 	);
-	if (fract->multicolor)
-		fract->color += (int){cos(7 / 8) + tanl(sin(8 / 9) * 2)};
+	// if (fract->multicolor)
+	//  fract->color += (int){cos(7 / 8) + tanl(sin(8 / 9) * 2)};
 	return (fract->img);
 }
 

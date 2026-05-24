@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 12:05:00 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:17:40 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,38 +35,28 @@ int julia(t_fract *fract)
 	return (i == max) ? -1 : i;
 }
 
-int mandelbrot(t_fract *fract)
+int mandelbrot(double cx, double cy, int max_iter)
 {
 	double zx = 0.0;
 	double zy = 0.0;
 	double zx2 = 0.0;
 	double zy2 = 0.0;
 	double tmp = 0.0;
-	double cx = 0.0;
-	double cy = 0.0;
 	int i = 0;
-	int max = 200;
-
-	// Calculate the complex number corresponding to the pixel
-	cx = ((double) fract->x / fract->zoom + fract->panx);
-	cx = ((cx / WIDTH - 0.5) * 2.0) * fract->ratio;
-	cy = ((double) fract->y / fract->zoom + fract->pany);
-	cy = (cy / HEIGHT - 0.5) * 2.0;
 
 	// Iterate the function z = z^2 + c
-	while (zx2 + zy2 < 4.0 && i < max)
+	while (zx2 + zy2 < 4.0 && i < max_iter)
 	{
+		// Calculate the next iteration of z
 		tmp = zx2 - zy2 + cx;
 		zy = 2.0 * zx * zy + cy;
 		zx = tmp;
-
+		// Update zx2 and zy2 for the next iteration
 		zx2 = zx * zx;
 		zy2 = zy * zy;
-
 		i++;
 	}
-
-	return (i == max) ? -1 : i;
+	return (i == max_iter) ? -1 : i;
 }
 
 int burningship(t_fract *fract)
