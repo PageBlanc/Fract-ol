@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 11:26:38 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 11:45:42 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ typedef struct s_data
 {
 	void *img;
 	char *addr;
-	int	  bbp;
-	int	  line_length;
-	int	  endian;
+	int bbp;
+	int line_length;
+	int endian;
 	void *win;
 	void *mlx;
 } t_data;
@@ -36,32 +36,32 @@ typedef struct f_fract
 {
 	t_data img;
 	double zoom;
-	int	   is_press;
-	int	   x;
-	int	   y;
 	double cx;
 	double cy;
 	double ratio;
 	double panx;
 	double pany;
+	int is_press;
+	int x;
+	int y;
 	int color;
-	char   type;
-	int	   multicolor;
+	int multicolor;
+	char type;
 } t_fract;
 
-int	   key_hook(int keycode, t_fract *fract);
-int	   mouse_hook(int mousecode, int x, int y, t_fract *fract);
-int	   destroy(t_data *img);
-int	   multiple_julia(t_fract *fract);
 t_data print_fractol(t_fract *fract);
-int	   ft_rgb(int r, int g, int b);
+void fractval_init(t_fract *fract, char *x, char *y);
+void put_pixel(t_data *data, int x, int y, int color);
+void init_fractol(char *type, char *x, char *y);
 double ft_atof(char *nbr);
-void   fractval_init(t_fract *fract, char *x, char *y);
-int	   get_color(t_fract *fract, int i);
-void   put_pixel(t_data *data, int x, int y, int color);
-double julia(t_fract *fract);
-double mandelbrot(t_fract *fract);
-double burningship(t_fract *fract);
-void   init_fractol(char *type, char *x, char *y);
+int key_hook(int keycode, t_fract *fract);
+int mouse_hook(int mousecode, int x, int y, t_fract *fract);
+int destroy(t_data *img);
+int multiple_julia(t_fract *fract);
+int ft_rgb(int r, int g, int b);
+int get_color(t_fract *fract, int i);
+int julia(t_fract *fract);
+int mandelbrot(t_fract *fract);
+int burningship(t_fract *fract);
 
 #endif

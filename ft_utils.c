@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 11:26:11 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:13:12 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void fractval_init(t_fract *fract, char *x, char *y)
 	fract->multicolor = 0;
 }
 
-int get_color(t_fract *fract, int i)
+int get_color(t_fract *fract, int iteration)
 {
 	int intensity;
 	int r;
 	int g;
 	int b;
 
-	intensity = i % 256;
+	intensity = iteration % 256;
 	r = intensity;
 	g = (intensity + fract->color) % 256;
 	b = (intensity * 2) % 256;

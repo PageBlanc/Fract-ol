@@ -6,19 +6,19 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 10:20:53 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:05:00 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fractol.h"
 
-double julia(t_fract *fract)
+int julia(t_fract *fract)
 {
 	double zx;
 	double zy;
 	double xtemp;
 	double i;
-	int	   max;
+	int max;
 
 	i = 0;
 	max = 200;
@@ -32,66 +32,63 @@ double julia(t_fract *fract)
 		zy = 2 * zx * zy + fract->cx;
 		zx = xtemp + fract->cy;
 	}
-	if (i == max)
-		return (-1);
-	else
-		return (i);
+	return (i == max) ? -1 : i;
 }
 
-double mandelbrot(t_fract *fract)
+int mandelbrot(t_fract *fract)
 {
-	double zx;
-	double zy;
-	double xtemp;
-	double i;
-	double max;
+	double zx = 0.0;
+	double zy = 0.0;
+	double zx2 = 0.0;
+	double zy2 = 0.0;
+	double tmp = 0.0;
+	double cx = 0.0;
+	double cy = 0.0;
+	int i = 0;
+	int max = 200;
 
-	i = 0;
-	max = 200;
-	zx = 0;
-	zy = 0;
-	fract->cx = (double) (fract->x) / fract->zoom + fract->panx;
-	fract->cx = ((fract->cx / WIDTH - 0.5) * 2) * fract->ratio;
-	fract->cy = (double) (fract->y) / fract->zoom + fract->pany;
-	fract->cy = (fract->cy / HEIGHT - 0.5) * 2;
-	while (zx * zx + zy * zy < 9 && i++ < max)
+	// Calculate the complex number corresponding to the pixel
+	cx = ((double) fract->x / fract->zoom + fract->panx);
+	cx = ((cx / WIDTH - 0.5) * 2.0) * fract->ratio;
+	cy = ((double) fract->y / fract->zoom + fract->pany);
+	cy = (cy / HEIGHT - 0.5) * 2.0;
+
+	// Iterate the function z = z^2 + c
+	while (zx2 + zy2 < 4.0 && i < max)
 	{
-		xtemp = zx * zx - zy * zy + fract->cx;
-		zy = 2 * zx * zy + fract->cy;
-		zx = xtemp;
+		tmp = zx2 - zy2 + cx;
+		zy = 2.0 * zx * zy + cy;
+		zx = tmp;
+
+		zx2 = zx * zx;
+		zy2 = zy * zy;
+
+		i++;
 	}
-	if (i == max)
-		return (-1);
-	else
-		return (i);
+
+	return (i == max) ? -1 : i;
 }
 
-double burningship(t_fract *fract)
+int burningship(t_fract *fract)
 {
-	double zx;
-	double zy;
+	double zx = 0;
+	double zy = 0;
 	double xtemp;
-	double i;
-	double max;
+	int i = 0;
+	int max = 200;
 
-	i = 0;
-	max = 200;
-	zx = 0;
-	zy = 0;
 	fract->cx = (double) (fract->x) / fract->zoom + fract->panx;
 	fract->cx = ((fract->cx / WIDTH - 0.5) * 2) * fract->ratio;
 	fract->cy = (double) (fract->y) / fract->zoom + fract->pany;
 	fract->cy = (fract->cy / HEIGHT - 0.5) * 2;
-	while (zx * zx + zy * zy < 9 && i++ < max)
+	for (double zx2 = zx * zx, zy2 = zy * zy; zx2 + zy2 < 4 && i++ < max;
+		 zx2 = zx * zx, zy2 = zy * zy)
 	{
-		xtemp = fabs(zx * zx) - fabs(zy * zy) + fract->cx;
+		xtemp = fabs(zx2) - fabs(zy2) + fract->cx;
 		zy = 2 * fabs(zx * zy) + fract->cy;
 		zx = xtemp;
 	}
-	if (i == max)
-		return (-1);
-	else
-		return (i);
+	return (i == max) ? -1 : i;
 }
 
 int multiple_julia(t_fract *fract)

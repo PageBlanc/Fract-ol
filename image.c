@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 11:33:43 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:19:20 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,32 @@ void put_pixel(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-double fractol_choice(t_fract *fract, double i)
+int (*choice_func(char type))(t_fract *)
 {
-	(void) i;
-	if (fract->type == 'j')
-		return (julia(fract));
-	else if (fract->type == 'm')
-		return (mandelbrot(fract));
-	else if (fract->type == 'b')
-		return (burningship(fract));
-	return (0);
+	if (type == 'j')
+		return (julia);
+	else if (type == 'm')
+		return (mandelbrot);
+	else if (type == 'b')
+		return (burningship);
+	return (NULL);
 }
 
 t_data print_fractol(t_fract *fract)
 {
-	double i;
+	int iteration = 0;
+	int (*func_ptr)(t_fract *) = choice_func(fract->type);
+	if (!func_ptr)
+		return (fract->img);
 
 	fract->x = 0;
-	i = 0;
 	while (fract->x++ < WIDTH)
 	{
 		fract->y = 0;
 		while (fract->y++ < HEIGHT)
 		{
-			i = fractol_choice(fract, i);
-			put_pixel(&fract->img, fract->x, fract->y, get_color(fract, i));
+			iteration = func_ptr(fract);
+			put_pixel(&fract->img, fract->x, fract->y, get_color(fract, iteration));
 		}
 	}
 	mlx_put_image_to_window(
