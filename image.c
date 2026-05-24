@@ -95,10 +95,10 @@ void init_fractol(char *type, char *x, char *y)
 	fract.img.addr = mlx_get_data_addr(
 		fract.img.img, &fract.img.bbp, &fract.img.line_length, &fract.img.endian
 	);
-	mlx_key_hook(fract.img.win, key_hook, &fract);
-	mlx_mouse_hook(fract.img.win, mouse_hook, &fract);
-	mlx_hook(fract.img.win, 17, 1L << 0, destroy, &fract.img);
-	mlx_loop_hook(fract.img.mlx, lauch_fractol, &fract);
+	mlx_key_hook(fract.img.win, (int (*)())(void *)key_hook, &fract);
+	mlx_mouse_hook(fract.img.win, (int (*)())(void *)mouse_hook, &fract);
+	mlx_hook(fract.img.win, 17, 1L << 0, (int (*)())(void *)destroy, &fract.img);
+	mlx_loop_hook(fract.img.mlx, (int (*)())(void *)lauch_fractol, &fract);
 	mlx_loop(fract.img.mlx);
 	destroy(&fract.img);
 }

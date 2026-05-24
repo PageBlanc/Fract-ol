@@ -24,10 +24,10 @@ OBJS = $(addprefix $(BUILD_DIR)/, $(SRC:.c=.o))
 
 LIBFT  = Libft/libft.a
 
+all: $(NAME)
+
 $(BUILD_DIR):
 	@mkdir -p $(BUILD_DIR)
-
-all: $(NAME)
 
 $(LIBFT):
 	@make --quiet -C Libft/ all

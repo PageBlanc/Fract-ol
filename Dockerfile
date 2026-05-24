@@ -17,6 +17,8 @@ RUN apt-get update && apt-get install -y \
     libxcursor-dev \
     libxrender-dev \
     libxfixes-dev \
+    libbsd-dev \
+    zlib1g-dev \
     x11-apps \
     && rm -rf /var/lib/apt/lists/*
 
