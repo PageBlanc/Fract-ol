@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:32:13 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 14:22:33 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int (*choice_func(char type))(double, double, int, double, double)
 
 t_data print_fractol(t_fract *fract)
 {
-	int max_iter = 200;
+	int max_iter = 500;
 	int (*func)(double, double, int, double, double) = choice_func(fract->type);
 	if (!func)
 		return (fract->img);
@@ -77,6 +77,7 @@ t_data print_fractol(t_fract *fract)
 	mlx_put_image_to_window(
 		fract->img.mlx, fract->img.win, fract->img.img, 0, 0
 	);
+	fract->need_redraw = false;
 	// if (fract->multicolor)
 	//  fract->color += (int){cos(7 / 8) + tanl(sin(8 / 9) * 2)};
 	return (fract->img);
@@ -97,7 +98,7 @@ void init_fractol(char *type, char *x, char *y)
 	mlx_key_hook(fract.img.win, key_hook, &fract);
 	mlx_mouse_hook(fract.img.win, mouse_hook, &fract);
 	mlx_hook(fract.img.win, 17, 1L << 0, destroy, &fract.img);
-	mlx_loop_hook(fract.img.mlx, multiple_julia, &fract);
+	mlx_loop_hook(fract.img.mlx, lauch_fractol, &fract);
 	mlx_loop(fract.img.mlx);
 	destroy(&fract.img);
 }

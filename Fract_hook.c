@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:38:18 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 14:12:06 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ int key_hook(int keycode, t_fract *fract)
 		fract->color = 0;
 	else if (keycode == 109) // 'm' key
 		fract->multicolor = !fract->multicolor;
-	print_fractol(fract);
+	fract->need_redraw = true;
 	return (1);
 }
 
 void zoom(t_fract *fract, double factor, int x, int y)
 {
+	if (DEBUG_PERF)
+		printf("Zooming with factor: %f at (%d, %d)\n", factor, x, y);
 	double world_x;
 	double world_y;
 
@@ -65,6 +67,6 @@ int mouse_hook(int mousecode, int x, int y, t_fract *fract)
 		fract->c_re = (double) x / WIDTH * 2.0 - 1.0;
 		fract->c_im = (double) y / HEIGHT * 2.0 - 1.0;
 	}
-	print_fractol(fract);
+	fract->need_redraw = true;
 	return (1);
 }

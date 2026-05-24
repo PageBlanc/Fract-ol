@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:31:39 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 14:13:28 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 #define WIDTH 1000
 #define HEIGHT 1000
+#define DEBUG_PERF 1
 
 #include "Libft/libft.h"
 #include "mlx/mlx.h"
 #include <math.h>
+#include <time.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 typedef struct s_data
@@ -43,12 +46,13 @@ typedef struct f_fract
 	double pany;
 	double c_re;
 	double c_im;
-	int is_press;
 	int x;
 	int y;
 	int color;
 	int multicolor;
 	char type;
+	bool is_press;
+	bool need_redraw;
 } t_fract;
 
 t_data print_fractol(t_fract *fract);
@@ -59,7 +63,7 @@ double ft_atof(char *nbr);
 int key_hook(int keycode, t_fract *fract);
 int mouse_hook(int mousecode, int x, int y, t_fract *fract);
 int destroy(t_data *img);
-int multiple_julia(t_fract *fract);
+int lauch_fractol(t_fract *fract);
 int ft_rgb(int r, int g, int b);
 int get_color(t_fract *fract, int i);
 int mandelbrot(double cx, double cy, int max, double c_re, double c_im);

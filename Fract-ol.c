@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 20:23:39 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 13:30:48 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/24 14:20:45 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,21 @@ int julia(double zx, double zy, int max_iter, double cr, double ci)
 
 int mandelbrot(double cx, double cy, int max_iter, double c_re, double c_im)
 {
-	(void)c_re; // Unused parameter
-	(void)c_im; // Unused parameter
+	(void) c_re; // Unused parameter
+	(void) c_im; // Unused parameter
 
 	double zx = 0.0;
 	double zy = 0.0;
 	double zx2 = 0.0;
 	double zy2 = 0.0;
-	double tmp = 0.0;
 	int i = 0;
 
 	// Iterate the function z = z^2 + c
 	while (zx2 + zy2 < 4.0 && i < max_iter)
 	{
 		// Calculate the next iteration of z
-		tmp = zx2 - zy2 + cx;
 		zy = 2.0 * zx * zy + cy;
-		zx = tmp;
+		zx = zx2 - zy2 + cx;
 		// Update zx2 and zy2 for the next iteration
 		zx2 = zx * zx;
 		zy2 = zy * zy;
@@ -64,8 +62,8 @@ int mandelbrot(double cx, double cy, int max_iter, double c_re, double c_im)
 
 int burningship(double cx, double cy, int max_iter, double c_re, double c_im)
 {
-	(void)c_re; // Unused parameter
-	(void)c_im; // Unused parameter
+	(void) c_re; // Unused parameter
+	(void) c_im; // Unused parameter
 
 	double zx = 0.0;
 	double zy = 0.0;
@@ -93,20 +91,32 @@ int burningship(double cx, double cy, int max_iter, double c_re, double c_im)
 	return (i == max_iter) ? -1 : i;
 }
 
-int multiple_julia(t_fract *fract)
+int lauch_fractol(t_fract *fract)
 {
-	int x;
-	int y;
+	int x = 0;
+	int y = 0;
 
-	x = 0;
-	y = 0;
 	if (fract->is_press)
-	{
+	{ // Update cx and cy based on mouse position for Julia set
 		mlx_mouse_get_pos(fract->img.mlx, fract->img.win, &x, &y);
 		fract->cx = (double) ((((double) x) / WIDTH - 0.5) * 2);
 		fract->cy = (double) ((((double) y) / HEIGHT - 0.5) * 2);
 	}
-	print_fractol(fract);
+	if (DEBUG_PERF && fract->need_redraw)
+	{ // Measure rendering time for performance debugging
+		clock_t start = clock();
+		print_fractol(fract);
+		clock_t end = clock();
+		printf(
+			"frame from render: %f ms\n",
+			(double) (end - start) * 1000 / CLOCKS_PER_SEC
+		);
+	}
+	else
+	{
+		if (fract->need_redraw)
+			print_fractol(fract);
+	}
 	return (1);
 }
 

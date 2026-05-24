@@ -6,7 +6,7 @@
 #    By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/02 19:46:17 by axdubois          #+#    #+#              #
-#    Updated: 2026/05/24 11:29:24 by axdubois         ###   ########.fr        #
+#    Updated: 2026/05/24 14:18:33 by axdubois         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= fract-ol
 
 LIB 	= libft.a
 
-FLAG 	= -Wall -Wextra -Werror
+FLAG 	= -Wall -Wextra -Werror -O3 -Ofast -march=native
 
 BUILD_DIR = build
 
