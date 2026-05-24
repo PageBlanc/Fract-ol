@@ -45,6 +45,47 @@ Bienvenue dans **Fract-ol**, mon interprétation du projet de l'école 42 consis
 
    Si aucun nom de fractale n'est fourni, le programme affichera les options disponibles.
 
+## Compilation et Exécution avec Docker
+
+**Fract-ol** est aussi disponible en tant qu'image Docker, ce qui permet de compiler et exécuter le projet sur n'importe quel PC sans installer les dépendances manuellement.
+
+### Prérequis
+
+- **Docker** (v29+)
+- **docker-compose** ou `docker compose` (intégré à Docker)
+
+### Utilisation
+
+1. **Via Makefile** (recommandé) :
+
+   ```bash
+   # Compiler l'image Docker
+   make docker-build
+
+   # Lancer les différentes fractales
+   make docker-mandelbrot
+   make docker-julia
+   make docker-burningship
+
+   # Nettoyer les conteneurs et l'image Docker
+   make docker-clean
+   ```
+
+2. **Directement avec docker compose** :
+
+   ```bash
+   # Construire et exécuter Mandelbrot
+   docker compose build
+   docker compose run --rm fract-ol ./fract-ol mandelbrot
+   ```
+
+### Notes
+
+- Sur Linux, le programme affichera l'interface graphique directement.
+- L'image Docker inclut automatiquement toutes les dépendances (build-essential, X11, libXext, libX11, etc.).
+- Les conteneurs sont automatiquement supprimés après exécution grâce au flag `--rm`.
+- Pour nettoyer les conteneurs orphelins : `make docker-clean`
+
 ## Contrôles
 
 - **Zoom** : Molette de la souris.
