@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 22:47:12 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 14:11:50 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:03:28 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void fractval_init(t_fract *fract, char *x, char *y)
 	fract->multicolor = 0;
 	fract->is_press = false;
 	fract->need_redraw = true;
+	fract->animating_zoom = false;
 }
 
 int get_color(t_fract *fract, int iteration)

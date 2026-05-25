@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:05:46 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 14:12:06 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:07:12 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int key_hook(int keycode, t_fract *fract)
 		fract->color = 0;
 	else if (keycode == 109) // 'm' key
 		fract->multicolor = !fract->multicolor;
+	else if (keycode == 97) // 'a' key
+	{
+		fract->zoom = 300.0;
+		fract->panx = 0;
+		fract->pany = 0;
+		fract->animating_zoom = !fract->animating_zoom;
+	}
 	fract->need_redraw = true;
 	return (1);
 }

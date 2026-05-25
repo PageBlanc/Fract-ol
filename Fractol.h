@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 23:15:14 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 17:07:30 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:05:07 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ typedef struct f_fract
 	char type;
 	bool is_press;
 	bool need_redraw;
+	bool animating_zoom;
 } t_fract;
 
 t_data print_fractol(t_fract *fract);
 void fractval_init(t_fract *fract, char *x, char *y);
 void put_pixel(t_data *data, int x, int y, int color);
 void init_fractol(char *type, char *x, char *y);
+void zoom(t_fract *fract, double factor, int x, int y);
 double ft_atof(char *nbr);
 int key_hook(int keycode, t_fract *fract);
 int mouse_hook(int mousecode, int x, int y, t_fract *fract);

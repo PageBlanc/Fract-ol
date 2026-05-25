@@ -6,7 +6,7 @@
 /*   By: axdubois <axdubois@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 09:53:31 by axdubois          #+#    #+#             */
-/*   Updated: 2026/05/24 17:31:00 by axdubois         ###   ########.fr       */
+/*   Updated: 2026/05/25 20:15:15 by axdubois         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ t_data print_fractol(t_fract *fract)
 	fract->need_redraw = false;
 	if (fract->multicolor)
 		fract->color = (fract->color + 1) % 0xFFFFFF;
+	// Animate zoom if enabled
+	if (fract->animating_zoom)
+	{
+		zoom(fract, 1.01, WIDTH / 2, HEIGHT / 2);
+		fract->need_redraw = true;
+	}
 	return (fract->img);
 }
 
